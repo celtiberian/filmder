@@ -1,4 +1,4 @@
-<p align="center"><img width="150" src="./Filmder.svg" alt="Filmder logo"></a></p>
+<p align="center"><img width="200" src="./Filmder.svg" alt="Filmder logo"></a></p>
 
 # FILMDER
 
