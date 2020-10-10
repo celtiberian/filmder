@@ -1,3 +1,5 @@
+<p align="center"><img width="200" src="./Filmder.svg" alt="Filmder logo"></a></p>
+
 # FILMDER
 
 ## Welcome to Filmder
