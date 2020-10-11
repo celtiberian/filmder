@@ -4,4 +4,10 @@ import Search from "./components/Search";
 
 import "./styles/Main.css";
 
-ReactDOM.render(<Search />, document.getElementById("root"));
+ReactDOM.render(
+  <div>
+    <Search />
+    <div id="filmder-icon"></div>
+  </div>,
+  document.getElementById("root")
+);

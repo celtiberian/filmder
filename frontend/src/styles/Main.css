@@ -16,11 +16,11 @@ body {
 }
 
 #root {
-  background: linear-gradient(
-    to right,
-    rgb(255, 102, 86) 0%,
-    rgb(255, 110, 129) 100%
-  );
+  background: url("../assets/filmder-bck.svg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -51,4 +51,13 @@ h5 {
 
 h5:last-of-type {
   color: darkgray;
+}
+
+#filmder-icon {
+  background: url("../assets/icon.white.svg") no-repeat;
+  width: 200px;
+  height: 150px;
+  position: fixed;
+  left: 2%;
+  bottom: 0%;
 }
