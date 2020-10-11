@@ -1,4 +1,4 @@
-.Deck>div {
+.Deck > div {
   position: absolute;
   width: 100%;
   height: 80%;
@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.Deck>div>div {
+.Deck > div > div {
   padding: 5px;
   background-color: white;
   background-size: auto 85%;
@@ -30,7 +30,7 @@ button[aria-label="next"] {
   color: black !important;
 }
 
-.card>div {
+.card > div {
   height: 380px !important;
 }
 
@@ -42,6 +42,6 @@ button[aria-label="next"] {
   bottom: -15px !important;
 }
 
-.slider-control-bottomcenter>ul>li>button {
+.slider-control-bottomcenter > ul > li > button {
   color: salmon !important;
 }
