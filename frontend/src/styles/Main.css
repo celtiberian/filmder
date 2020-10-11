@@ -16,7 +16,7 @@ body {
 }
 
 #root {
-    background: salmon;
+    background: linear-gradient(to right, rgb(255, 102, 86) 0%, rgb(255, 110, 129) 100%);
     position: fixed;
     overflow: hidden;
     width: 100%;
