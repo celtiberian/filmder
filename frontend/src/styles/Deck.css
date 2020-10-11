@@ -1,32 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  overscroll-behavior-y: contain;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  user-select: none;
-  font-family: Raleway, sans-serif;
-  position: fixed;
-  overflow: hidden;
-}
-
-#root {
-  background: salmon;
-  position: fixed;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  cursor: url("https://uploads.codesandbox.io/uploads/user/b3e56831-8b98-4fee-b941-0e27f39883ab/Ad1_-cursor.png")
-      39 39,
-    auto;
-}
-
-#root > div {
+.Deck>div {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -36,7 +8,7 @@ body {
   justify-content: center;
 }
 
-#root > div > div {
+.Deck>div>div {
   padding: 5px;
   background-color: white;
   background-size: auto 85%;
@@ -52,38 +24,13 @@ body {
     0 10px 10px -10px rgba(50, 50, 73, 0.3);
 }
 
-img {
-  height: 380px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
 button[aria-label="previous"],
 button[aria-label="next"] {
   background: salmon !important;
   color: black !important;
 }
 
-h2 {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-h2:nth-of-type(2) {
-  opacity: 0.7;
-  font-size: 1.35rem;
-}
-
-h5 {
-  margin-top: -15px;
-  margin-left: 2px;
-  color: lightgray;
-}
-h5:last-of-type {
-  color: darkgray;
-}
-
-.card > div {
+.card>div {
   height: 380px !important;
 }
 
@@ -95,6 +42,6 @@ h5:last-of-type {
   bottom: -15px !important;
 }
 
-.slider-control-bottomcenter > ul > li > button {
+.slider-control-bottomcenter>ul>li>button {
   color: salmon !important;
 }
