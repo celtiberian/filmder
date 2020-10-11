@@ -14,13 +14,15 @@ const Search = () => {
   return (
     <div>
       <div className="Search">
-        <ReactSearchBox
-          placeholder="Placeholder"
-          value="Doe"
-          data={data}
-          callback={(record) => console.log(record)}
-        />
-        <button onClick={onClick}>
+        <div className="search-box">
+          <ReactSearchBox
+            placeholder="Placeholder"
+            value="Doe"
+            data={data}
+            callback={(record) => console.log(record)}
+          />
+        </div>
+        <button className="button-search" onClick={onClick}>
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>
