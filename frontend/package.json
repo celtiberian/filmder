@@ -15,7 +15,8 @@
     "react-scripts": "^3.4.3",
     "react-search-box": "^2.0.2",
     "react-spring": "^7.2.11",
-    "react-with-gesture": "^4.0.8"
+    "react-with-gesture": "^4.0.8",
+    "store2": "^2.12.0"
   },
   "scripts": {
     "start": "react-scripts start",
