@@ -8,6 +8,8 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "animate.css": "^4.1.1",
     "animate.css-react": "^1.1.0",
+    "axios": "^0.20.0",
+    "axios-hooks": "^2.1.0",
     "nuka-carousel": "^4.7.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
