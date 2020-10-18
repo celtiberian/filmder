@@ -1,21 +1,19 @@
-import React from "react";
-import { string, number, array } from "prop-types";
-import { animated, interpolate } from "react-spring/hooks";
-import Carousel from "nuka-carousel";
+import React from 'react'
+import { string, number, array } from 'prop-types'
+import { animated, interpolate } from 'react-spring/hooks'
+import Carousel from 'nuka-carousel'
 
 const Card = ({ i, x, y, rot, scale, bind, data }) => {
-  const { name, age, distance, text, pics } = data[i];
+  const { name, age, distance, text, pics } = data[i]
 
   return (
     <animated.div
       key={i}
       style={{
-        transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`)
+        transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`),
       }}
     >
-      <animated.div
-        {...bind(i)}
-      >
+      <animated.div {...bind(i)}>
         <div className="card">
           <Carousel>
             {pics.map((pic, index) => (
@@ -29,15 +27,15 @@ const Card = ({ i, x, y, rot, scale, bind, data }) => {
         </div>
       </animated.div>
     </animated.div>
-  );
-};
+  )
+}
 
 Card.propTypes = {
   name: string,
   age: number,
   distance: string,
   text: string,
-  pics: array
-};
+  pics: array,
+}
 
-export default Card;
+export default Card
