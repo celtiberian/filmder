@@ -1,9 +1,9 @@
 import React from 'react'
-import { useCoreReducer } from '../reducers'
 import { setName } from '../actions'
+import { useCoreContext } from '../contexts'
 
 export const WelcomeView = () => {
-  const [, dispatch] = useCoreReducer()
+  const [, dispatch] = useCoreContext()
   const [name, setLocalName] = React.useState('')
 
   const onChange = (evt) => {
@@ -19,7 +19,12 @@ export const WelcomeView = () => {
     <div>
       <h2>Welcome</h2>
       <form onSubmit={onSubmit}>
-        <input required value={name} onChange={onChange} placeholder="Enter username..."/>
+        <input
+          required
+          value={name}
+          onChange={onChange}
+          placeholder="Enter username..."
+        />
       </form>
     </div>
   )
