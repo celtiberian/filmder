@@ -9,6 +9,7 @@ export const WelcomeView = () => {
   const onChange = (evt) => {
     setLocalName(evt.target.value)
   }
+
   const onSubmit = (evt) => {
     evt.preventDefault()
     dispatch(setName(name))
