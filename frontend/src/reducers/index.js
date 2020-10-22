@@ -1,4 +1,3 @@
-import { faSadCry } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import store from 'store2'
 import { CORE_ACTIONS } from '../actions/actionNames'
