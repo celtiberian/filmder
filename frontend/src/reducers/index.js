@@ -3,16 +3,16 @@ import React from 'react'
 import store from 'store2'
 import { CORE_ACTIONS } from '../actions/actionNames'
 
-const actions = {
+const handlers = {
   [CORE_ACTIONS.SET_USERNAME]: (state, { payload }) => {
     const { name } = payload
     store.set('username', name)
     return { ...state, username: name }
-  }
+  },
 }
 
 const coreReducer = (state, action) => {
-  const fn = CORE_ACTIONS[action.type]
+  const fn = handlers[action.type]
   if (fn) {
     state = fn(state, action)
   }
