@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactSearchBox from "react-search-box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire } from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +8,15 @@ import "../styles/Search.css";
 import useKeyPress from "../utils/useKeyPress";
 import Animate from "animate.css-react";
 import "animate.css/animate.css";
+import { getMovieByID } from "../api/actions.js";
 
 const Search = () => {
   const [showDeck, setShowDeck] = useState(false);
+
+  useEffect(() => {
+    const movie = getMovieByID(550);
+  }, [])
+
   /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
   const enterPress = useKeyPress("h");
 
