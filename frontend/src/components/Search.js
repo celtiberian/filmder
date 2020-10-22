@@ -8,9 +8,11 @@ import '../styles/Search.css'
 import useKeyPress from '../utils/useKeyPress'
 import Animate from 'animate.css-react'
 import 'animate.css/animate.css'
+import { useCoreReducer } from '../reducers/index.js'
 
 const Search = () => {
   const [showDeck, setShowDeck] = useState(false)
+  const [globalState] = useCoreReducer()
   /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
   const enterPress = useKeyPress('h')
 
