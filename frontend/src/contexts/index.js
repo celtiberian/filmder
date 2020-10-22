@@ -7,3 +7,5 @@ export const CoreContextProvider = ({ children }) => {
   const stateAndDispatch = useCoreReducer()
   return <CoreContext.Provider value={stateAndDispatch}>{children}</CoreContext.Provider>
 }
+
+export const useCoreContext = () => React.useContext(CoreContext)
