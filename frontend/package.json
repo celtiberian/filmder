@@ -6,14 +6,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "animate.css": "^4.1.1",
-    "animate.css-react": "^1.1.0",
     "axios": "^0.20.0",
     "nuka-carousel": "^4.7.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^3.4.4",
     "react-search-box": "^2.0.2",
     "react-spring": "^7.2.11",
     "react-with-gesture": "^4.0.8"
@@ -22,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pretty": "prettier --write ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +31,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "2.1.2"
+  }
 }

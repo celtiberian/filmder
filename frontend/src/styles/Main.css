@@ -16,7 +16,7 @@ body {
 }
 
 #root {
-  background: url("../assets/filmder-bck.svg") no-repeat center fixed;
+  background: url('../assets/filmder-bck.svg') no-repeat center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -54,7 +54,7 @@ h5:last-of-type {
 }
 
 #filmder-icon {
-  background: url("../assets/icon.white.svg") no-repeat;
+  background: url('../assets/icon.white.svg') no-repeat;
   width: 200px;
   height: 150px;
   position: fixed;
