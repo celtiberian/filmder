@@ -21,7 +21,6 @@ const Search = () => {
       setIsLoading(true);
  
       try {
-        console.log(movieIDs)
         const moviesListPromises = movieIDs.map(async (movieID) => getMovieByID(movieID))
         const moviesList = await Promise.all(moviesListPromises)
         setMovies(moviesList);
