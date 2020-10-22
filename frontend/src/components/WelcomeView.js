@@ -3,7 +3,7 @@ import { useCoreReducer } from '../reducers'
 import { setName } from '../actions'
 
 export const WelcomeView = () => {
-  const [globalState, dispatch] = useCoreReducer()
+  const [, dispatch] = useCoreReducer()
   const [name, setLocalName] = React.useState('')
 
   const onChange = (evt) => {
