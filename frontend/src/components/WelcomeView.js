@@ -19,7 +19,7 @@ export const WelcomeView = () => {
     <div>
       <h2>Welcome</h2>
       <form onSubmit={onSubmit}>
-        <input required value={name} onChange={onChange} />
+        <input required value={name} onChange={onChange} placeholder="Enter username..."/>
       </form>
     </div>
   )
