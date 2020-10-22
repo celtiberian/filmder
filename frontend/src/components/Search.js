@@ -12,10 +12,30 @@ import { getMovieByID } from "../api/actions.js";
 
 const Search = () => {
   const [showDeck, setShowDeck] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [movieIDs, setMovieIDs] = useState([550, 220])
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const movie = getMovieByID(550);
-  }, [])
+    const fetchData = async (movieIDs) => {
+      setIsError(false);
+      setIsLoading(true);
+ 
+      try {
+        console.log(movieIDs)
+        const moviesListPromises = movieIDs.map(async (movieID) => getMovieByID(movieID))
+        const moviesList = await Promise.all(moviesListPromises)
+        setMovies(moviesList);
+      } catch (error) {
+        setIsError(true);
+      }
+ 
+      setIsLoading(false);
+    };
+ 
+    fetchData(movieIDs);
+  }, []);
 
   /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
   const enterPress = useKeyPress("h");
