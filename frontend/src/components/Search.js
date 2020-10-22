@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactSearchBox from 'react-search-box'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFire } from '@fortawesome/free-solid-svg-icons'
@@ -6,11 +6,17 @@ import data from '../data/dataSearch.js'
 import Deck from './Deck'
 import '../styles/Search.css'
 //import useKeyPress from '../utils/useKeyPress'
+import { getMovieByID } from '../api/actions.js'
 
 const Search = () => {
   const [showDeck, setShowDeck] = useState(false)
-  /* TODO: Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda
-  const enterPress = useKeyPress('h')
+
+  useEffect(() => {
+    const movie = getMovieByID(550)
+  }, [])
+
+  /*TODO: Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda
+  const enterPress = useKeyPress("h");
   */
 
   const onClick = () => setShowDeck(true)
