@@ -14,13 +14,13 @@ import { WelcomeView } from './WelcomeView.js'
 const Search = () => {
   const [showDeck, setShowDeck] = useState(false)
   const [globalState] = useCoreReducer()
+  const enterPress = useKeyPress('h')
 
   if (!globalState.username) {
     return <WelcomeView />
   }
 
   /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
-  const enterPress = useKeyPress('h')
 
   const onClick = () => setShowDeck(true)
 
