@@ -26,5 +26,5 @@ const init = () => {
 }
 
 export const useCoreReducer = () => {
-  return React.useReducer(coreReducer, init)
+  return React.useReducer(coreReducer, undefined, init)
 }
