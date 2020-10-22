@@ -5,9 +5,12 @@ import { faFire } from '@fortawesome/free-solid-svg-icons'
 import data from '../data/dataSearch.js'
 import Deck from './Deck'
 import '../styles/Search.css'
+import { WelcomeView } from './WelcomeView.js'
 import { getMovieByID } from '../api/actions.js'
+import { useCoreContext } from '../contexts/index.js'
 
 const Search = () => {
+  const [globalState] = useCoreContext()
   const [showDeck, setShowDeck] = useState(false)
   const [movies, setMovies] = useState([])
   const [movieIDs, setMovieIDs] = useState([550, 220])
@@ -32,6 +35,14 @@ const Search = () => {
 
     fetchData(movieIDs)
   }, [])
+
+  console.log(globalState)
+
+  if (!globalState.username) {
+    return <WelcomeView />
+  }
+
+  /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
 
   const onClick = () => setShowDeck(true)
 
