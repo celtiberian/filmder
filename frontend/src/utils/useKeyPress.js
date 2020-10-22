@@ -27,7 +27,8 @@ function useKeyPress(targetKey) {
       window.removeEventListener('keydown', downHandler)
       window.removeEventListener('keyup', upHandler)
     }
-  }, []) // Empty array ensures that effect is only run on mount and unmount
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // Empty array ensures that effect is only run on mount and unmount
 
   return keyPressed
 }
