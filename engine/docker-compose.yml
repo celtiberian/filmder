@@ -19,7 +19,7 @@ services:
     image: predictionio/pio:latest
     ports:
       - 7070:7070
-      - 8001:8000
+      - 5000:8000
     volumes:
       - ./templates:/templates
     dns: 8.8.8.8
