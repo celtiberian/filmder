@@ -7,4 +7,10 @@ const getMovieByID = async (movieID) => {
   return res.data
 }
 
-export { getMovieByID }
+const getSuggestionByTitle = async (title) => {
+  const res = await API.get(endpoints.getSuggestionsByTitle(title))
+  if (res.error) throw res.error
+  return res.data
+}
+
+export { getMovieByID, getSuggestionByTitle }

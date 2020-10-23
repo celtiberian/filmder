@@ -6,7 +6,7 @@ import data from '../data/dataSearch.js'
 import Deck from './Deck'
 import '../styles/Search.css'
 import { WelcomeView } from './WelcomeView.js'
-import { getMovieByID } from '../api/actions.js'
+import { getMovieByID, getSuggestionByTitle } from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
 const Search = () => {
@@ -16,6 +16,8 @@ const Search = () => {
   const [movieIDs, setMovieIDs] = useState([550, 220])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+
+  const [suggestions, setSuggestions] = useState([])
 
   useEffect(() => {
     const fetchData = async (movieIDs) => {
@@ -34,7 +36,7 @@ const Search = () => {
     }
 
     fetchData(movieIDs)
-  }, [])
+  }, [movieIDs])
 
   console.log(globalState)
 
@@ -42,9 +44,26 @@ const Search = () => {
     return <WelcomeView />
   }
 
-  /*Como le paso esto al componente de input ReactSearchBox? Quiero que al darle a enter haga la busqueda*/
-
   const onClick = () => setShowDeck(true)
+
+  const handleSearchChange = async (text) => {
+    if (text.length > 2) {
+      const { results } = await getSuggestionByTitle(text)
+      const parsedResults = results.map((m) => {
+        return {
+          key: m.id,
+          value: m.title,
+        }
+      })
+      setSuggestions(parsedResults)
+    }
+  }
+
+  const handleSelect = async (movie) => {
+    const movieResult = await getMovieByID(movie.key)
+    console.log(movieResult)
+    setMovies([movieResult])
+  }
 
   return (
     <div>
@@ -56,8 +75,10 @@ const Search = () => {
           <div className="search-box">
             <ReactSearchBox
               placeholder="Search your movie ♥"
-              data={data}
+              data={suggestions}
               callback={(record) => console.log('record')}
+              onChange={handleSearchChange}
+              onSelect={handleSelect}
             />
           </div>
         </div>
