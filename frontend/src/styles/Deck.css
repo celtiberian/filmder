@@ -14,10 +14,10 @@
   background-size: auto 85%;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 300px;
-  max-width: 300px;
-  height: 550px;
-  max-height: 570px;
+  width: 375px;
+  max-width: 375px;
+  height: 687px;
+  max-height: 712px;
   will-change: transform;
   border-radius: 10px;
   box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4),
@@ -30,12 +30,16 @@ button[aria-label='next'] {
   color: black !important;
 }
 
-.card > div {
-  height: 380px !important;
+.card > img {
+  height: auto !important;
+  width: 90% !important;
+  align-self: center;
 }
 
 .card {
-  height: 500px !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .slider-control-bottomcenter {

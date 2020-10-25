@@ -3,7 +3,6 @@ import { useSprings } from 'react-spring/hooks'
 import { useGesture } from 'react-with-gesture'
 
 import Card from './Card'
-import data from '../data/dataCards.js'
 
 import '../styles/Deck.css'
 
@@ -16,7 +15,7 @@ const to = (i) => ({
 })
 const from = (i) => ({ rot: 0, scale: 1.5, y: -1000 })
 
-function Deck() {
+function Deck({ data }) {
   const [gone] = useState(() => new Set())
 
   const [props, set] = useSprings(data.length, (i) => ({
