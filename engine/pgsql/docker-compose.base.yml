@@ -21,6 +21,8 @@ services:
       POSTGRES_USER: pio
       POSTGRES_PASSWORD: pio
       POSTGRES_INITDB_ARGS: --encoding=UTF8
+    ports:
+      - "5432:5432"
   pio:
     depends_on:
       - postgres
