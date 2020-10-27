@@ -53,6 +53,11 @@ h5:last-of-type {
   color: darkgray;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 #filmder-icon {
   background: url('../assets/icon.white.svg') no-repeat;
   width: 200px;

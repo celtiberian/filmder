@@ -6,7 +6,7 @@ import data from '../data/dataSearch.js'
 import Deck from './Deck'
 import '../styles/Search.css'
 import { WelcomeView } from './WelcomeView.js'
-import { getMovieByID, getSuggestionByTitle } from '../api/actions.js'
+import { getMovieByID, getSuggestionByTitle, getRecommendationsByUserId } from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
 const Search = () => {
@@ -60,9 +60,12 @@ const Search = () => {
   }
 
   const handleSelect = async (movie) => {
-    const movieResult = await getMovieByID(movie.key)
-    console.log(movieResult)
-    setMovies([movieResult])
+    //const movieResult = await getMovieByID(movie.key)
+    const movieResult = await getRecommendationsByUserId(1)
+    const movies = await Promise.allSettled(movieResult.itemScores.map(i => getMovieByID(i.item)))
+    const filteredMovies = movies.filter(i => i.status === 'fulfilled').map(i => i.value)
+    console.log(filteredMovies)
+    setMovies(filteredMovies)
   }
 
   return (
@@ -83,7 +86,7 @@ const Search = () => {
           </div>
         </div>
       </div>
-      <div className="Deck-Searched">{showDeck ? <Deck /> : null}</div>
+      <div className="Deck-Searched">{showDeck ? <Deck data={movies}/> : null}</div>
     </div>
   )
 }
