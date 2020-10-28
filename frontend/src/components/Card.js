@@ -3,8 +3,14 @@ import { string, number, array } from 'prop-types'
 import { animated, interpolate } from 'react-spring/hooks'
 import Carousel from 'nuka-carousel'
 
+const IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original/"
+
 const Card = ({ i, x, y, rot, scale, bind, data }) => {
-  const { name, age, distance, text, pics } = data[i]
+
+  const { title, release_date: releaseDate, production_countries: countries, overview, poster_path } = data[i]
+  const countriesParsed = countries.map(c => c.name).join(", ")
+  const pic = [IMAGE_BASE_URL + poster_path]
+  const year = releaseDate.slice(0,4)
 
   return (
     <animated.div
@@ -15,15 +21,13 @@ const Card = ({ i, x, y, rot, scale, bind, data }) => {
     >
       <animated.div {...bind(i)}>
         <div className="card">
-          <Carousel>
-            {pics.map((pic, index) => (
-              <img src={pic} key={index} alt="profilePicture" />
-            ))}
-          </Carousel>
-          <h2>{name},</h2>
-          <h2>{age}</h2>
-          <h5>{distance}</h5>
-          <h5>{text}</h5>
+          <img src={pic} alt="poster" />
+          <div className="row">
+            <h2>{title}</h2>
+            <h2>{year}</h2>
+          </div>
+          <h5>{countriesParsed}</h5>
+          <h5>{overview}</h5>
         </div>
       </animated.div>
     </animated.div>
