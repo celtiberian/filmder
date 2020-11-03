@@ -7,7 +7,6 @@ const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/original/'
 
 const Card = ({ i, x, y, rot, scale, bind, data }) => {
   if (!data[i]) {
-    debugger
     return null
   }
   const { title, release_date: releaseDate, overview, poster_path } = data[i]

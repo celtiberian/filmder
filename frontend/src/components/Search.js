@@ -19,6 +19,7 @@ const Search = () => {
   const [globalState] = useCoreContext()
   const [movies, setMovies] = useState([])
   const [movieIDs, setMovieIDs] = useState([])
+  // TODO add loading animation
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -43,16 +44,7 @@ const Search = () => {
     }
   }
 
-  const handleSelect = async (movie) => {
-    setIsLoading(true)
-
-    console.log(movie)
-    const movieData = await getMovieByID(movie.key)
-
-    // Send selected movie to user
-    // TODO use real endpoint
-    await sendLikedMovie(globalState.username, movieData.imdb_id)
-
+  const getRecommendations = async () => {
     //const movieResult = await getMovieByID(movie.key)
     const { itemScores: recommendations } = await getRecommendationsByUserId(
       globalState.username
@@ -70,11 +62,32 @@ const Search = () => {
       imdbId: imdbIdList[i],
     }))
 
-    const filteredMovieList = mergedMovieList.filter((m) => m.id)
+    return mergedMovieList.filter((m) => m.id)
+  }
 
-    console.log(filteredMovieList)
-    setMovies(filteredMovies)
+  const handleSelect = async (movie) => {
+    setIsLoading(true)
+
+    const movieData = await getMovieByID(movie.key)
+
+    // Send selected movie to user
+    // TODO use real endpoint
+    await sendLikedMovie(globalState.username, movieData.imdb_id)
+
+    const recommendedMovies = await getRecommendations()
+
+    setMovies(recommendedMovies)
     setIsLoading(false)
+  }
+
+  const addLikedMovie = async (movieId) => {
+    await sendLikedMovie(globalState.username, movieId)
+  }
+
+  const lastCardAction = async () => {
+    const nextList = await getRecommendations()
+
+    setMovies(nextList)
   }
 
   return (
@@ -97,7 +110,11 @@ const Search = () => {
       </div>
       <div className="Deck-Searched">
         {movies.length > 0 ? (
-          <Deck data={movies} />
+          <Deck
+            data={movies}
+            likedAction={addLikedMovie}
+            lastCardAction={lastCardAction}
+          />
         ) : (
           'Search the first movie to start recommending new ones'
         )}

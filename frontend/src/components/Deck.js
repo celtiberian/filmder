@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSprings } from 'react-spring/hooks'
 import { useGesture } from 'react-with-gesture'
-
 import Card from './Card'
 
 import '../styles/Deck.css'
@@ -15,7 +14,7 @@ const to = (i) => ({
 })
 const from = (i) => ({ rot: 0, scale: 1.5, y: -1000 })
 
-function Deck({ data }) {
+function Deck({ data, likedAction, lastCardAction }) {
   const [gone] = useState(() => new Set())
 
   const [props, set] = useSprings(data.length, (i) => ({
@@ -34,6 +33,16 @@ function Deck({ data }) {
       set((i) => {
         if (index !== i) return
         const isGone = gone.has(index)
+
+        if (isGone) {
+          if (dir === 1) {
+            // Send right swapped movie to liked list
+            likedAction(data[index].imdbId)
+          }
+          if (i === 0) {
+            lastCardAction()
+          }
+        }
 
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0
 
