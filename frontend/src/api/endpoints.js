@@ -1,3 +1,5 @@
+import { PIO_API_KEY } from "./constants"
+
 export const commonAPIEndpoints = {
   getMovieByID: (movieID) => `/3/movie/${movieID}`,
   getMovieByExternalID: (externalId) => `/3/find/${externalId}?external_source=imdb_id`,
@@ -5,5 +7,6 @@ export const commonAPIEndpoints = {
 }
 export const pioAPIEndpoints = {
   getRecommendationByUserId: 'queries.json',
-  sendLikedMovie: (title) => `/3/search/movie?query=${title}`,
+  sendLikedMovie: `events.json?accessKey=${PIO_API_KEY}`,
+  getUserEvent: (userId) => `events.json?entityId=${userId}&accessKey=${PIO_API_KEY}`
 }
