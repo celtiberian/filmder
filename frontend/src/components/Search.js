@@ -6,45 +6,29 @@ import data from '../data/dataSearch.js'
 import Deck from './Deck'
 import '../styles/Search.css'
 import { WelcomeView } from './WelcomeView.js'
-import { getMovieByID, getSuggestionByTitle, getRecommendationsByUserId } from '../api/actions.js'
+import {
+  getMovieByID,
+  getSuggestionByTitle,
+  getRecommendationsByUserId,
+  getMovieByExternalID,
+  sendLikedMovie,
+} from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
 const Search = () => {
   const [globalState] = useCoreContext()
-  const [showDeck, setShowDeck] = useState(false)
   const [movies, setMovies] = useState([])
-  const [movieIDs, setMovieIDs] = useState([550, 220])
+  const [movieIDs, setMovieIDs] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const [suggestions, setSuggestions] = useState([])
-
-  useEffect(() => {
-    const fetchData = async (movieIDs) => {
-      setIsError(false)
-      setIsLoading(true)
-
-      try {
-        const moviesListPromises = movieIDs.map(async (movieID) => getMovieByID(movieID))
-        const moviesList = await Promise.all(moviesListPromises)
-        setMovies(moviesList)
-      } catch (error) {
-        setIsError(true)
-      }
-
-      setIsLoading(false)
-    }
-
-    fetchData(movieIDs)
-  }, [movieIDs])
 
   console.log(globalState)
 
   if (!globalState.username) {
     return <WelcomeView />
   }
-
-  const onClick = () => setShowDeck(true)
 
   const handleSearchChange = async (text) => {
     if (text.length > 2) {
@@ -60,19 +44,44 @@ const Search = () => {
   }
 
   const handleSelect = async (movie) => {
+    setIsLoading(true)
+
+    console.log(movie)
+    const movieData = await getMovieByID(movie.key)
+
+    // Send selected movie to user
+    // TODO use real endpoint
+    await sendLikedMovie(globalState.username, movieData.imdb_id)
+
     //const movieResult = await getMovieByID(movie.key)
-    const movieResult = await getRecommendationsByUserId(1)
-    const movies = await Promise.allSettled(movieResult.itemScores.map(i => getMovieByID(i.item)))
-    const filteredMovies = movies.filter(i => i.status === 'fulfilled').map(i => i.value)
-    console.log(filteredMovies)
+    const { itemScores: recommendations } = await getRecommendationsByUserId(
+      globalState.username
+    )
+    const imdbIdList = recommendations.map((rec) => rec.item)
+    const movies = await Promise.allSettled(
+      imdbIdList.map((id) => getMovieByExternalID(id))
+    )
+    const filteredMovies = movies
+      .filter((i) => i.status === 'fulfilled')
+      .map((i) => i.value)
+
+    const mergedMovieList = filteredMovies.map((e, i) => ({
+      ...e,
+      imdbId: imdbIdList[i],
+    }))
+
+    const filteredMovieList = mergedMovieList.filter((m) => m.id)
+
+    console.log(filteredMovieList)
     setMovies(filteredMovies)
+    setIsLoading(false)
   }
 
   return (
     <div>
       <div className="Search">
         <div className="search-wrapper">
-          <button className="button-search" onClick={onClick}>
+          <button className="button-search">
             <FontAwesomeIcon icon={faFire} />
           </button>
           <div className="search-box">
@@ -86,7 +95,13 @@ const Search = () => {
           </div>
         </div>
       </div>
-      <div className="Deck-Searched">{showDeck ? <Deck data={movies}/> : null}</div>
+      <div className="Deck-Searched">
+        {movies.length > 0 ? (
+          <Deck data={movies} />
+        ) : (
+          'Search the first movie to start recommending new ones'
+        )}
+      </div>
     </div>
   )
 }
