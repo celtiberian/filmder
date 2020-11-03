@@ -73,10 +73,20 @@ const getRecommendationsByUserId = async (user, num = 10) => {
 }
 
 const sendLikedMovie = async (userId, movieID) => {
-  // const res = await API.post(pioAPIEndpoints.sendLikedMovie(userId, movieID))
-  // if (res.error) throw res.error
-  // return res.data
+  const res = await ENGINE.post(pioAPIEndpoints.addLikeEvent, {
+    event : "buy",
+    entityType : "user",
+    entityId : user,
+    targetEntityType : "item",
+    targetEntityId : movie,
+  })
 }
+
+const getUserLikedMovies = (userId) => {
+  const res = await ENGINE.get(pioAPIEndpoints.getUserEvent(userId))
+  return res.data
+}
+
 
 export {
   getMovieByID,
@@ -84,4 +94,5 @@ export {
   getRecommendationsByUserId,
   getMovieByExternalID,
   sendLikedMovie,
+  getUserLikedMovies,
 }
