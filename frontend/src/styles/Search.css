@@ -38,3 +38,15 @@
 .button-search:focus {
   outline: none !important;
 }
+
+.Deck-Searched p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: white;
+  font-size: xx-large;
+  height: 80vh;
+  font-family: Raleway, sans-serif;
+  text-align: center;
+}
