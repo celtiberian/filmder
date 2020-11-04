@@ -30,13 +30,13 @@ const sendLikedMovie = async (userId, movieID) => {
   const res = await ENGINE.post(pioAPIEndpoints.addLikeEvent, {
     event : "buy",
     entityType : "user",
-    entityId : user,
+    entityId : userId,
     targetEntityType : "item",
-    targetEntityId : movie,
+    targetEntityId : movieID,
   })
 }
 
-const getUserLikedMovies = (userId) => {
+const getUserLikedMovies = async (userId) => {
   const res = await ENGINE.get(pioAPIEndpoints.getUserEvent(userId))
   return res.data
 }
