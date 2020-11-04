@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  pio:
+    image: predictionio/pio:latest
+    ports:
+      - 7070:7070
+    volumes:
+      - ./engine/templates:/templates
+    dns: 8.8.8.8
+
+  nginx:
+    image: nginx
+    ports:
+      - 8082:8082
+    volumes:
+      - ./engine/nginx:/etc/nginx
+
+  node:
+    build:
+      context: .
+      dockerfile: ./compose/node/Dockerfile
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    stdin_open: true
+    command: npm start
+    ports:
+      - 3001:3000
