@@ -27,7 +27,7 @@ const getRecommendationsByUserId = async (user, num = 10) => {
 }
 
 const sendLikedMovie = async (userId, movieID) => {
-  const res = await ENGINE.post(pioAPIEndpoints.addLikeEvent, {
+  const res = await ENGINE.post(pioAPIEndpoints.sendLikedMovie, {
     event : "buy",
     entityType : "user",
     entityId : userId,
