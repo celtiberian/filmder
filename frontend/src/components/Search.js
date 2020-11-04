@@ -19,6 +19,7 @@ const Search = () => {
   const [globalState] = useCoreContext()
   const [movies, setMovies] = useState([])
   const [movieIDs, setMovieIDs] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
   // TODO add loading animation
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -47,7 +48,8 @@ const Search = () => {
   const getRecommendations = async () => {
     //const movieResult = await getMovieByID(movie.key)
     const { itemScores: recommendations } = await getRecommendationsByUserId(
-      globalState.username
+      globalState.username,
+      150,
     )
     const imdbIdList = recommendations.map((rec) => rec.item)
     const movies = await Promise.allSettled(
@@ -69,12 +71,12 @@ const Search = () => {
     setIsLoading(true)
 
     const movieData = await getMovieByID(movie.key)
-
-    // Send selected movie to user
-    // TODO use real endpoint
+    
+    console.log(movieData.imdb_id)
     await sendLikedMovie(globalState.username, movieData.imdb_id)
 
     const recommendedMovies = await getRecommendations()
+    console.log(recommendedMovies)
 
     setMovies(recommendedMovies)
     setIsLoading(false)
@@ -85,11 +87,9 @@ const Search = () => {
   }
 
   const lastCardAction = async () => {
-    const nextList = await getRecommendations()
-
-    setMovies(nextList)
+    //const nextList = await getRecommendations()
+    //setMovies(nextList)
   }
-
   return (
     <div>
       <div className="Search">
@@ -111,12 +111,14 @@ const Search = () => {
       <div className="Deck-Searched">
         {movies.length > 0 ? (
           <Deck
-            data={movies}
+            data={movies.slice(10*currentPage,10*(currentPage+1))}
             likedAction={addLikedMovie}
-            lastCardAction={lastCardAction}
+            lastCardAction={() => setCurrentPage(val => val + 1)}
           />
         ) : (
-          'Search the first movie to start recommending new ones'
+          <p>
+            {'Search the first movie to start recommending new ones'}
+          </p>
         )}
       </div>
     </div>
