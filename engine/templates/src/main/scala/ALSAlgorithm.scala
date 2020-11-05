@@ -79,9 +79,11 @@ class ALSAlgorithm(val ap: ALSAlgorithmParams)
     model.userStringIntMap.get(query.user).map { userInt =>
       // create inverse view of itemStringIntMap
       val itemIntStringMap = model.itemStringIntMap.inverse
-      // recommendProducts() returns Array[MLlibRating], which uses item Int
+      // recommendProductsWithFilter() returns Array[MLlibRating], which uses item Int
       // index. Convert it to String ID for returning PredictedResult
-      val itemScores = model.recommendProducts(userInt, query.num)
+      val blackList = query.blackList.flatMap(model.itemStringIntMap.get)
+      val itemScores = model
+        .recommendProductsWithFilter(userInt, query.num, blackList)
         .map (r => ItemScore(itemIntStringMap(r.product), r.rating))
       PredictedResult(itemScores)
     }.getOrElse{

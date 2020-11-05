@@ -80,7 +80,7 @@ class DataSource(val dsp: DataSourceParams)
       (new TrainingData(trainingRatings),
         new EmptyEvaluationInfo(),
         testingUsers.map {
-          case (user, ratings) => (Query(user, evalParams.queryNum), ActualResult(ratings.toArray))
+          case (user, ratings) => (Query(user, evalParams.queryNum, Set.empty), ActualResult(ratings.toArray))
         }
       )
     }}

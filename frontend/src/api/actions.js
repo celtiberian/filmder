@@ -20,8 +20,8 @@ const getSuggestionByTitle = async (title) => {
   return res.data
 }
 
-const getRecommendationsByUserId = async (user, num = 10) => {
-  const res = await ENGINE.post(pioAPIEndpoints.getRecommendationByUserId, { user, num })
+const getRecommendationsByUserId = async (user, num = 10, blackList = []) => {
+  const res = await ENGINE.post(pioAPIEndpoints.getRecommendationByUserId, { user, num, blackList })
   if (res.error) throw res.error
   return res.data
 }

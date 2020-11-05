@@ -13,6 +13,7 @@ import {
   getMovieByExternalID,
   sendLikedMovie,
   sendDislikedMovie,
+  getUserLikedMovies,
 } from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
@@ -48,9 +49,12 @@ const Search = () => {
 
   const getRecommendations = async () => {
     //const movieResult = await getMovieByID(movie.key)
+    const res = await getUserLikedMovies(globalState.username)
+    console.log(res)
     const { itemScores: recommendations } = await getRecommendationsByUserId(
       globalState.username,
       150,
+      res.map(val => val.targetEntityId)
     )
     const imdbIdList = recommendations.map((rec) => rec.item)
     const movies = await Promise.allSettled(
@@ -77,12 +81,10 @@ const Search = () => {
     await sendLikedMovie(globalState.username, movieData.imdb_id)
 
     const recommendedMovies = await getRecommendations()
-    console.log(recommendedMovies)
     setCurrentPage(0)
     setMovies(recommendedMovies)
     setIsLoading(false)
   }
-
   const addLikedMovie = async (movieId) => {
     await sendLikedMovie(globalState.username, movieId)
   }

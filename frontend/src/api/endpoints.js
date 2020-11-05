@@ -8,5 +8,5 @@ export const commonAPIEndpoints = {
 export const pioAPIEndpoints = {
   getRecommendationByUserId: 'queries.json',
   sendMovieEvent: `events.json?accessKey=${PIO_API_KEY}`,
-  getUserEvent: (userId) => `events.json?entityId=${userId}&accessKey=${PIO_API_KEY}`
+  getUserEvent: (userId) => `events.json?entityId=${userId}&accessKey=${PIO_API_KEY}&limit=-1`
 }
