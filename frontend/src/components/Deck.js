@@ -39,7 +39,7 @@ function Deck({ data, likedAction, dislikedAction, lastCardAction }) {
             // Send right swapped movie to liked list
             likedAction(data[index].imdbId)
           }
-          if (dir === 1) {
+          if (dir === -1) {
             // Send left swapped movie to dislike
             dislikedAction(data[index].imdbId)
           }
