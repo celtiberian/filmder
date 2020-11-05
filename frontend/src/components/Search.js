@@ -78,7 +78,7 @@ const Search = () => {
 
     const recommendedMovies = await getRecommendations()
     console.log(recommendedMovies)
-
+    setCurrentPage(0)
     setMovies(recommendedMovies)
     setIsLoading(false)
   }
