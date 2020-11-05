@@ -12,6 +12,8 @@ import {
   getRecommendationsByUserId,
   getMovieByExternalID,
   sendLikedMovie,
+  sendDislikedMovie,
+  getUserLikedMovies,
 } from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
@@ -47,9 +49,12 @@ const Search = () => {
 
   const getRecommendations = async () => {
     //const movieResult = await getMovieByID(movie.key)
+    const res = await getUserLikedMovies(globalState.username)
+    console.log(res)
     const { itemScores: recommendations } = await getRecommendationsByUserId(
       globalState.username,
       150,
+      res.map(val => val.targetEntityId)
     )
     const imdbIdList = recommendations.map((rec) => rec.item)
     const movies = await Promise.allSettled(
@@ -76,20 +81,18 @@ const Search = () => {
     await sendLikedMovie(globalState.username, movieData.imdb_id)
 
     const recommendedMovies = await getRecommendations()
-    console.log(recommendedMovies)
-
+    setCurrentPage(0)
     setMovies(recommendedMovies)
     setIsLoading(false)
   }
-
   const addLikedMovie = async (movieId) => {
     await sendLikedMovie(globalState.username, movieId)
   }
 
-  const lastCardAction = async () => {
-    //const nextList = await getRecommendations()
-    //setMovies(nextList)
+  const addDislikedMovie = async (movieId) => {
+    await sendDislikedMovie(globalState.username, movieId)
   }
+
   return (
     <div>
       <div className="Search">
@@ -113,6 +116,7 @@ const Search = () => {
           <Deck
             data={movies.slice(10*currentPage,10*(currentPage+1))}
             likedAction={addLikedMovie}
+            dislikedAction={addDislikedMovie}
             lastCardAction={() => setCurrentPage(val => val + 1)}
           />
         ) : (

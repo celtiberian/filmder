@@ -1,4 +1,5 @@
 package org.apache.spark.mllib.recommendation
+import com.github.fommil.netlib.BLAS.{getInstance => blas}
 // This must be the same package as Spark's MatrixFactorizationModel because
 // MatrixFactorizationModel's constructor is private and we are using
 // its constructor in order to save and load the model
@@ -43,6 +44,23 @@ class ALSModel(
     s"(${userStringIntMap.take(2)}...)" +
     s" itemStringIntMap: [${itemStringIntMap.size}]" +
     s"(${itemStringIntMap.take(2)}...)"
+  }
+
+  def recommendProductsWithFilter(user: Int, num: Int, productIdFilter: Set[Int]) = {
+    val filteredProductFeatures = productFeatures
+      .filter { case (id, _) => !productIdFilter.contains(id) } // (*)
+    recommend(userFeatures.lookup(user).head, filteredProductFeatures, num)
+      .map(t => Rating(user, t._1, t._2))
+  }
+
+  private def recommend(
+      recommendToFeatures: Array[Double],
+      recommendableFeatures: RDD[(Int, Array[Double])],
+      num: Int): Array[(Int, Double)] = {
+    val scored = recommendableFeatures.map { case (id, features) =>
+      (id, blas.ddot(features.length, recommendToFeatures, 1, features, 1))
+    }
+    scored.top(num)(Ordering.by(_._2))
   }
 }
 

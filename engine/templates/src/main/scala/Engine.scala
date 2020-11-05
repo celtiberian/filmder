@@ -5,7 +5,8 @@ import org.apache.predictionio.controller.Engine
 
 case class Query(
   user: String,
-  num: Int
+  num: Int,
+  blackList: Set[String]
 )
 
 case class PredictedResult(
