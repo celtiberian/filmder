@@ -14,7 +14,7 @@ const to = (i) => ({
 })
 const from = (i) => ({ rot: 0, scale: 1.5, y: -1000 })
 
-function Deck({ data, likedAction, lastCardAction }) {
+function Deck({ data, likedAction, dislikedAction, lastCardAction }) {
   const [gone] = useState(() => new Set())
 
   const [props, set] = useSprings(data.length, (i) => ({
@@ -38,6 +38,10 @@ function Deck({ data, likedAction, lastCardAction }) {
           if (dir === 1) {
             // Send right swapped movie to liked list
             likedAction(data[index].imdbId)
+          }
+          if (dir === 1) {
+            // Send left swapped movie to dislike
+            dislikedAction(data[index].imdbId)
           }
           if (i === 0) {
             lastCardAction()

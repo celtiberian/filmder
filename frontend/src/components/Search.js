@@ -12,6 +12,7 @@ import {
   getRecommendationsByUserId,
   getMovieByExternalID,
   sendLikedMovie,
+  sendDislikedMovie,
 } from '../api/actions.js'
 import { useCoreContext } from '../contexts/index.js'
 
@@ -86,10 +87,10 @@ const Search = () => {
     await sendLikedMovie(globalState.username, movieId)
   }
 
-  const lastCardAction = async () => {
-    //const nextList = await getRecommendations()
-    //setMovies(nextList)
+  const addDislikedMovie = async (movieId) => {
+    await sendDislikedMovie(globalState.username, movieId)
   }
+
   return (
     <div>
       <div className="Search">
@@ -113,6 +114,7 @@ const Search = () => {
           <Deck
             data={movies.slice(10*currentPage,10*(currentPage+1))}
             likedAction={addLikedMovie}
+            dislikedAction={addDislikedMovie}
             lastCardAction={() => setCurrentPage(val => val + 1)}
           />
         ) : (
